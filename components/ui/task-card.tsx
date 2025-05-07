@@ -3,7 +3,7 @@
 import type { Task } from "@/types"
 import { formatDistanceToNow } from "date-fns"
 import { es } from "date-fns/locale"
-import { CheckCircle, Clock, Coins, Star } from "lucide-react"
+import { CheckCircle, Clock, Coins, Pen, Star } from "lucide-react"
 
 interface TaskCardProps {
   task: Task
@@ -11,9 +11,10 @@ interface TaskCardProps {
   onDelete?: (taskId: number) => void
   onStar?: (taskId: number) => void
   onUnstar?: (taskId: number) => void
+  setEditTask?: React.Dispatch<React.SetStateAction<Task | null>>
 }
 
-export function TaskCard({ task, onComplete,onStar,onUnstar,onDelete }: TaskCardProps) {
+export function TaskCard({ task, onComplete,onStar,onUnstar,onDelete,setEditTask }: TaskCardProps) {
   const isOverdue = task.deadline && new Date(task.deadline) < new Date()
   const starComponentLogic = () => {
     //task can have favorite or not and if it has favorite it can be starred or not
@@ -94,6 +95,14 @@ export function TaskCard({ task, onComplete,onStar,onUnstar,onDelete }: TaskCard
             {formatDistanceToNow(new Date(task.deadline), { addSuffix: true, locale: es })}
           </span>
         </div>
+      )}
+      {setEditTask && !task.is_completed && (
+        <button
+          onClick={() => setEditTask(task)}
+          className="p-1 rounded-full hover:bg-blue-500/20 transition-colors"
+        >
+          <Pen className="w-4 h-4 text-blue-500" />
+        </button>
       )}
     </div>
   )

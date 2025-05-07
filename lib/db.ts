@@ -673,6 +673,69 @@ export async function createTask(taskData: {
   }
 }
 
+export async function editTask(taskId: number, userId: string, updateData: {
+  title?: string;
+  description?: string;
+  xpReward?: number;
+  statId?: number | null;
+  deadline?: string | Date | null;
+}) {
+  // Obtener la tarea
+  const taskResult = await sql`
+    SELECT * FROM tasks WHERE id = ${taskId} AND user_id = ${userId}
+  `
+  if (taskResult.length === 0) {
+    return { success: false, message: "Tarea no encontrada" }
+  }
+  const task = taskResult[0]
+  // Solo permitir editar si no está completada y la fecha límite no ha pasado
+  if (task.is_completed || (task.deadline && new Date(task.deadline) < new Date())) {
+    return { success: false, message: "No se puede editar una tarea completada o vencida" }
+  }
+
+  const fields: string[] = []
+  const values: any[] = []
+  let i = 1
+
+  if (updateData.title !== undefined) {
+    fields.push(`title = $${i++}`)
+    values.push(updateData.title)
+  }
+  if (updateData.description !== undefined) {
+    fields.push(`description = $${i++}`)
+    values.push(updateData.description)
+  }
+  if (updateData.xpReward !== undefined) {
+    fields.push(`xp_reward = $${i++}`)
+    values.push(updateData.xpReward)
+  }
+  if (updateData.statId !== undefined) {
+    fields.push(`stat_id = $${i++}`)
+    values.push(updateData.statId)
+  }
+  if (updateData.deadline !== undefined) {
+    const deadline = updateData.deadline ? new Date(updateData.deadline) : null
+    fields.push(`deadline = $${i++}`)
+    values.push(deadline)
+  }
+  fields.push(`updated_at = CURRENT_TIMESTAMP`)
+
+  if (fields.length > 0) {
+    const query = `
+      UPDATE tasks
+      SET ${fields.join(", ")}
+      WHERE id = $${i} AND user_id = $${i + 1}
+    `
+    values.push(taskId, userId)
+    await sql.query(query, values)
+  }
+
+  const updatedTask = await sql`
+    SELECT * FROM tasks WHERE id = ${taskId}
+  `
+  return { success: true, result: updatedTask[0] }
+}
+
 export async function saveTaskPin(pin: string, userid: string, newPin?: string) {
   //ping should be 4 digits number
   if (!/^\d{4}$/.test(pin)) {
@@ -740,12 +803,13 @@ export async function hasPin(userId: string) {
   return result.length > 0
 }
 
-export async function completeTask(taskId: number) {
+export async function completeTask(taskId: number,userId: string) {
   try {
     // Obtener información de la tarea
     const taskResult = await sql`
       SELECT * FROM tasks WHERE id = ${taskId}
     `
+
 
     if (taskResult.length === 0) {
       return { success: false, message: "Tarea no encontrada" }
@@ -753,6 +817,11 @@ export async function completeTask(taskId: number) {
 
     const task = taskResult[0]
     const userId = task.user_id
+
+    if(userId !== task.user_id){
+      return { success: false, message: "No puedes completar esta tarea" }
+    }
+
     let xpReward = task.xp_reward
     const statId = task.stat_id
 

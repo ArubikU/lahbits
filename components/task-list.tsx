@@ -2,19 +2,23 @@
 
 import { API_URLS, deleter, patcher } from "@/hooks/use-api"
 import { apiCache } from "@/hooks/use-cache"
-import type { Task, User } from "@/types"
+import type { Stat, StatCategory, Task, User } from "@/types"
 import { TaskCard } from "./ui/task-card"
 
 
 interface TaskListProps {
   tasks: Task[]
+  stats?: Stat[]
+  categories?: StatCategory[]
   setUncompletedTasks?: React.Dispatch<React.SetStateAction<Task[]>>;
   setCompletedTasks?: React.Dispatch<React.SetStateAction<Task[]>>;
   setTasks?: React.Dispatch<React.SetStateAction<Task[]>>;
   setUser?: React.Dispatch<React.SetStateAction<User | undefined>>;
+
+  setEditTask?: React.Dispatch<React.SetStateAction<Task | null>>;
 }
 
-export function TaskList({ tasks, setUncompletedTasks, setCompletedTasks, setUser }: TaskListProps) {
+export function TaskList({ tasks, setUncompletedTasks, setCompletedTasks, setUser, categories, stats,setEditTask }: TaskListProps) {
   const handleCompleteTask = async (taskId: number) => {
     try {
       const taskToComplete = tasks.find((task) => task.id === taskId)
@@ -180,19 +184,41 @@ export function TaskList({ tasks, setUncompletedTasks, setCompletedTasks, setUse
       console.error("Error favoriting task:", error)
     }
   }
+
+  // Helper function to get category color by task
+  function getCategoryColor(task: Task): string | undefined {
+    if (!categories || !task.stat_id || !stats) return undefined
+    const stat = stats.find((stat) => stat.id === task.stat_id)
+    const category = categories.find((category) => category.id === stat?.category_id)
+    return category ? category.color : undefined
+  }
+
   return (
     <div className="bg-gray-900/50 rounded-xl p-2">
-
       <div className="space-y-2 max-h-[calc(100vh-200px)] overflow-y-auto pr-2">
         {tasks.length === 0 ? (
           <p className="text-sm text-gray-500 text-center py-4">No hay tareas</p>
         ) : (
-          tasks.map((task) => <TaskCard key={task.id} task={task}
-            onComplete={!task.is_completed ? handleCompleteTask : undefined}
-            onDelete={!task.is_completed ? handleDeleteTask : undefined}
-            onStar={handleFavoriteTask} onUnstar={handleUnfavoriteTask}
-
-          />)
+          tasks.map((task) => (
+            <div
+              key={task.id}
+              className="relative"
+              style={
+                getCategoryColor(task)
+                  ? { borderLeft: `6px solid ${getCategoryColor(task)}` }
+                  : undefined
+              }
+            >
+              <TaskCard
+                task={task}
+                onComplete={!task.is_completed ? handleCompleteTask : undefined}
+                onDelete={!task.is_completed ? handleDeleteTask : undefined}
+                onStar={handleFavoriteTask}
+                onUnstar={handleUnfavoriteTask}
+                setEditTask={setEditTask}
+              />
+            </div>
+          ))
         )}
       </div>
     </div>

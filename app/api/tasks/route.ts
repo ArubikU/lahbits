@@ -1,6 +1,6 @@
 
 import { authHeaders } from "@/lib/api-auth"
-import { completeTask, createTask, deleteTask, getUserFailedAtNowTasks, getUserTasks, markTaskAsFavorite, validateTaskPin } from "@/lib/db"
+import { completeTask, createTask, deleteTask, editTask, getUserFailedAtNowTasks, getUserTasks, markTaskAsFavorite, validateTaskPin } from "@/lib/db"
 import { Task } from "@/types"
 import { type NextRequest, NextResponse } from "next/server"
 
@@ -45,13 +45,21 @@ export async function PATCH(request: NextRequest) {
         return NextResponse.json({ success: false, message: "Unauthorized" }, { status: 401 })
     }
 
-    const {taskId, completed } = await request.json()
+    const body = await request.json()
+    const {taskId} = body
     if(!taskId){
         return NextResponse.json({ success: false, message: "No se ha enviado el id de la tarea" }, { status: 400 })
     }
+    const  params = request.nextUrl.searchParams
+    const action = params.get("action")
     let result = {}
-    if(completed){
-         result = await completeTask(taskId)
+    if(action === "complete"){
+
+         result = await completeTask(taskId, user.id)
+    }
+    if(action === "edit"){
+        const {title, description, xpReward, statId, deadline} = body
+        result = await editTask(taskId, user.id, {title, description, xpReward, statId, deadline})
     }
     return NextResponse.json({ success: true, result })
 }
@@ -72,7 +80,7 @@ export async function POST(request: NextRequest) {
         if(!taskId){
             return NextResponse.json({ success: false, message: "No se ha enviado el id de la tarea" }, { status: 400 })
         }
-        const result = await completeTask(taskId)
+        const result = await completeTask(taskId, user.id)
         return NextResponse.json({ success: true, result })
     }
     if(action === "favorite"){

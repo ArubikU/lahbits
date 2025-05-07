@@ -376,36 +376,35 @@ export default function TaskForm({ userId, stats,setTasks,tasks }: TaskFormProps
           required />
       </div>
 
-      <div>
+      <div className="flex gap-2 mt-4">
         <button
           type="submit"
           disabled={isLoading}
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-green-500 disabled:opacity-50"
+          className="flex-1 flex items-center justify-center gap-2 py-1 px-3 rounded text-sm font-medium text-white bg-green-600 hover:bg-green-700 focus:outline-none focus:ring-2 focus:ring-green-500 disabled:opacity-50 transition"
+          title="Crear tarea"
         >
-          {isLoading ? "Creando..." : "Crear Tarea"}
+          {isLoading ? "Creando..." : "Crear"}
         </button>
-      </div>
-      <div>
         <button
           type="button"
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-red-600 hover:bg-red-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-red-500 disabled:opacity-50"
+          className="flex items-center justify-center gap-1 py-1 px-3 rounded text-sm font-medium text-white bg-yellow-600 hover:bg-yellow-700 focus:outline-none focus:ring-2 focus:ring-yellow-500 disabled:opacity-50 transition"
           onClick={editTaskWithAI}
-          disabled={isLoadingAi}
-          >
-            <Sparkles className="mr-2" />
-          </button>
-
-
-      </div>
-      <div>
+          disabled={isLoadingAi || !title || !description}
+          title="Mejorar con IA"
+        >
+          <Sparkles className="w-4 h-4" />
+          {isLoadingAi ? "Pensando..." : "Sugerir"}
+        </button>
         <button
           type="button"
-          className="w-full flex justify-center py-2 px-4 border border-transparent rounded-md shadow-sm text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-blue-500 disabled:opacity-50"
+          className="flex items-center justify-center gap-1 py-1 px-3 rounded text-sm font-medium text-white bg-blue-600 hover:bg-blue-700 focus:outline-none focus:ring-2 focus:ring-blue-500 disabled:opacity-50 transition"
           onClick={() => setOpen(true)}
           disabled={open}
-          >
-            <Pen className="mr-2" />
-          </button>
+          title="Generar varias tareas con IA"
+        >
+          <Pen className="w-4 h-4" />
+          Generar
+        </button>
       </div>
         <TaskGeneratorModal
           open={open}
