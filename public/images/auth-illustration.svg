@@ -1,0 +1,31 @@
+<svg width="300" height="200" viewBox="0 0 300 200" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="300" height="200" rx="8" fill="none"/>
+  
+  <!-- Character -->
+  <circle cx="150" cy="80" r="30" fill="#10B981"/>
+  <circle cx="140" cy="75" r="5" fill="white"/>
+  <circle cx="160" cy="75" r="5" fill="white"/>
+  <path d="M140 90 Q150 100 160 90" stroke="white" stroke-width="2" stroke-linecap="round"/>
+  
+  <!-- Level Up Animation -->
+  <circle cx="150" cy="80" r="40" stroke="#F59E0B" stroke-width="2" stroke-dasharray="6 3"/>
+  <path d="M150 30 L155 40 L165 40 L157 47 L160 57 L150 52 L140 57 L143 47 L135 40 L145 40 Z" fill="#F59E0B"/>
+  
+  <!-- Stats -->
+  <rect x="50" y="130" width="200" height="10" rx="5" fill="#374151"/>
+  <rect x="50" y="130" width="140" height="10" rx="5" fill="#10B981"/>
+  
+  <rect x="50" y="150" width="200" height="10" rx="5" fill="#374151"/>
+  <rect x="50" y="150" width="120" height="10" rx="5" fill="#8B5CF6"/>
+  
+  <rect x="50" y="170" width="200" height="10" rx="5" fill="#374151"/>
+  <rect x="50" y="170" width="160" height="10" rx="5" fill="#EC4899"/>
+  
+  <!-- Sparkles -->
+  <path d="M50 60 L55 65 L50 70 L45 65 Z" fill="#F59E0B"/>
+  <path d="M250 60 L255 65 L250 70 L245 65 Z" fill="#F59E0B"/>
+  <path d="M70 30 L75 35 L70 40 L65 35 Z" fill="#10B981"/>
+  <path d="M230 30 L235 35 L230 40 L225 35 Z" fill="#10B981"/>
+  <path d="M70 110 L75 115 L70 120 L65 115 Z" fill="#8B5CF6"/>
+  <path d="M230 110 L235 115 L230 120 L225 115 Z" fill="#8B5CF6"/>
+</svg>

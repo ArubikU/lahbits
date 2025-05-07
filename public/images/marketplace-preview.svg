@@ -1,0 +1,36 @@
+<svg width="500" height="300" viewBox="0 0 500 300" fill="none" xmlns="http://www.w3.org/2000/svg">
+  <rect width="500" height="300" rx="8" fill="#1F2937"/>
+  
+  <!-- Marketplace Items -->
+  <rect x="50" y="50" width="180" height="100" rx="8" fill="#111827"/>
+  <rect x="60" y="60" width="40" height="40" rx="20" fill="#EC4899"/>
+  <text x="80" y="85" font-family="Arial" font-size="16" fill="white" text-anchor="middle">🎁</text>
+  <text x="110" y="75" font-family="Arial" font-size="14" font-weight="bold" fill="white">Día libre</text>
+  <text x="110" y="95" font-family="Arial" font-size="12" fill="#6B7280">100 oro</text>
+  <rect x="60" y="120" width="80" height="20" rx="4" fill="#EC4899"/>
+  <text x="100" y="135" font-family="Arial" font-size="12" fill="white" text-anchor="middle">Comprar</text>
+  
+  <rect x="270" y="50" width="180" height="100" rx="8" fill="#111827"/>
+  <rect x="280" y="60" width="40" height="40" rx="20" fill="#8B5CF6"/>
+  <text x="300" y="85" font-family="Arial" font-size="16" fill="white" text-anchor="middle">⚡</text>
+  <text x="330" y="75" font-family="Arial" font-size="14" font-weight="bold" fill="white">Bonus de XP</text>
+  <text x="330" y="95" font-family="Arial" font-size="12" fill="#6B7280">75 oro</text>
+  <rect x="280" y="120" width="80" height="20" rx="4" fill="#8B5CF6"/>
+  <text x="320" y="135" font-family="Arial" font-size="12" fill="white" text-anchor="middle">Comprar</text>
+  
+  <rect x="50" y="170" width="180" height="100" rx="8" fill="#111827"/>
+  <rect x="60" y="180" width="40" height="40" rx="20" fill="#10B981"/>
+  <text x="80" y="205" font-family="Arial" font-size="16" fill="white" text-anchor="middle">🔄</text>
+  <text x="110" y="195" font-family="Arial" font-size="14" font-weight="bold" fill="white">Recuperar racha</text>
+  <text x="110" y="215" font-family="Arial" font-size="12" fill="#6B7280">200 oro</text>
+  <rect x="60" y="240" width="80" height="20" rx="4" fill="#10B981"/>
+  <text x="100" y="255" font-family="Arial" font-size="12" fill="white" text-anchor="middle">Comprar</text>
+  
+  <rect x="270" y="170" width="180" height="100" rx="8" fill="#111827"/>
+  <rect x="280" y="180" width="40" height="40" rx="20" fill="#3B82F6"/>
+  <text x="300" y="205" font-family="Arial" font-size="16" fill="white" text-anchor="middle">🎯</text>
+  <text x="330" y="195" font-family="Arial" font-size="14" font-weight="bold" fill="white">Stat boost</text>
+  <text x="330" y="215" font-family="Arial" font-size="12" fill="#6B7280">150 oro</text>
+  <rect x="280" y="240" width="80" height="20" rx="4" fill="#3B82F6"/>
+  <text x="320" y="255" font-family="Arial" font-size="12" fill="white" text-anchor="middle">Comprar</text>
+</svg>
