@@ -144,7 +144,7 @@ export async function generateTasks(prompt: string, user: User, stats: Stat[]): 
     - "description": A detailed description of the task.
     - "xp_reward": An integer between 5 and 100 representing the XP reward for completing the task.
     - "stat_id": The ID of the stat most relevant to the task.
-    - "deadline": A realistic deadline for the task in ISO 8601 format (e.g., "2023-12-31T23:59:59Z").
+    - "deadline": A realistic deadline for the task in ISO 8601 format (e.g., "2023-12-31").
 
     **User Context:**
     ${userContext}

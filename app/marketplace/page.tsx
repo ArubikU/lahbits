@@ -15,6 +15,7 @@ export default function MarketplacePage() {
   const [user,setUser] = useState<User>();
   const [items,setItems] = useState<MarketplaceItem[]>([])
   const [purchases,setPurchases] = useState<Purchase[]>([])
+  const [isMarketplaceFormOpen, setIsMarketplaceFormOpen] = useState(false)
   //call api url async
   useEffect(() => {
     const fetchUser = async () => {
@@ -54,11 +55,13 @@ export default function MarketplacePage() {
         <div className="max-w-6xl mx-auto">
           <h1 className="text-2xl font-bold mb-6">Marketplace</h1>
 
+            <button
+              className="mb-6 px-4 py-2 bg-blue-600 text-white rounded hover:bg-blue-700 transition"
+              onClick={() => setIsMarketplaceFormOpen(true)}
+            >
+              Crear nuevo producto
+            </button>
           <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-            <div className="bg-gray-900/50 rounded-xl p-6">
-              <h2 className="text-lg font-semibold mb-4">Crear Nuevo Producto</h2>
-              <MarketplaceItemForm user={user} setItems={setItems} setPurchases={setPurchases}/>
-            </div>
 
             <div className="bg-gray-900/50 rounded-xl p-6">
               <h2 className="text-lg font-semibold mb-4">Historial de Compras</h2>
@@ -96,6 +99,25 @@ export default function MarketplacePage() {
           </div>
         </div>
       </main>
+              {/* Panel de creación de tareas */}
+              {isMarketplaceFormOpen && (
+                <div className="fixed inset-0 bg-black bg-opacity-50 flex items-center justify-center z-50">
+                  <div className="bg-gray-800 p-6 rounded-lg w-96 relative">
+                    {/* Botón para cerrar el panel */}
+                    <button
+                      className="absolute top-2 right-2 text-gray-400 hover:text-white text-xl"
+                      onClick={() => setIsMarketplaceFormOpen(false)}
+                      aria-label="Cerrar"
+                    >
+                      &times;
+                    </button>
+                    <div className="bg-gray-900/50 rounded-xl p-6">
+                      <h2 className="text-lg font-semibold mb-4">Crear Nuevo Producto</h2>
+                      <MarketplaceItemForm user={user} setItems={setItems} setPurchases={setPurchases}/>
+                    </div>
+                  </div>
+                </div>
+              )}
     </div>
   )
 }
